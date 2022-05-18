@@ -1,0 +1,10 @@
+package com.springboot.support.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.springboot.support.entities.Admin;
+
+public interface AdminRepository extends JpaRepository<Admin, Integer>{
+	
+
+}

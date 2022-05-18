@@ -1,0 +1,25 @@
+package com.springboot.support.services;
+
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.customdetailshow.ViewAllTicketsDetails;
+import com.springboot.support.entities.Tickets;
+import com.springboot.support.serviceimpl.NoDataFoundException;
+
+   @Service
+   public interface TicketService {
+	   
+	   public String createTicket(Tickets ticket,int usrid);
+       public List<ViewAllTicketsDetails> viewAdmTicketList();
+       public Object viewTicketById(int id);
+       public String updateAssignee( int id, int assign);
+       public String updateStatus(int ticketid,int userid, int statusid);
+       public List<ViewAllTicketsDetails> viewUsrTicketList(int usrid);
+            
+		
+	
+}

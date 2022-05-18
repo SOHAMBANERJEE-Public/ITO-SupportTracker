@@ -1,0 +1,109 @@
+package com.springboot.support.controllers;
+
+
+import java.util.List;
+import java.util.Optional;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.springboot.support.customdetailshow.ViewAllTicketsDetails;
+import com.springboot.support.entities.Tickets;
+import com.springboot.support.services.TicketService;
+
+
+/**
+ * Rest controller for invoking the service methods of ticket service.
+ * 
+ * @author Soham Banerjee
+ *
+ */
+
+@RestController
+@RequestMapping("/tickets")
+public class TicketsController {
+	
+	@Autowired
+	TicketService tickserv;
+	
+	/**
+	 * Invokes the createTicket service methods of Ticket Service.
+	 * @param tick holds the ticket details.
+	 * @param usrid holds the user id.
+	 * @return String value for acknowledgement and error.
+	 */
+	@RequestMapping(value="/createticket", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public String crtTicket(@RequestBody Tickets tick, @RequestParam int usrid) {
+		
+		return tickserv.createTicket(tick, usrid);
+	}
+	
+	/**
+	 * Invoking viewAdminTicket list in service method.
+	 * @return all the available ticket.
+	 */
+	@RequestMapping(value="/viewadmintickets", method=RequestMethod.GET)
+	public ResponseEntity<?> viewAdmTickets(){
+		
+		List<ViewAllTicketsDetails> list= tickserv.viewAdmTicketList();
+		
+		if(list==null) {
+			return new ResponseEntity<>("No ticket created yet..!", HttpStatus.NOT_FOUND);
+		}
+		
+		return ResponseEntity.of(Optional.of(list));
+	}
+	
+	/**
+	 * Invoking viewUserTicket list in service method.
+	 * @param usrid
+	 * @return
+	 */
+	
+	@RequestMapping(value="/viewusertickets", method=RequestMethod.GET)
+	public ResponseEntity<?> viewUsrTickets(@RequestParam int usrid){
+		
+        List<ViewAllTicketsDetails> list= tickserv.viewUsrTicketList(usrid);
+		
+		if(list==null) {
+			return new ResponseEntity<>("No ticket created yet..!", HttpStatus.NOT_FOUND);
+		}
+		
+		return ResponseEntity.of(Optional.of(list));
+	}
+	
+	@RequestMapping(value="/viewticketsbyid", method=RequestMethod.GET)
+	public Object viewTicketbyId(@RequestParam int id){
+		
+		return tickserv.viewTicketById(id);
+	}
+	
+	@RequestMapping(value="/updateassignee", method=RequestMethod.PUT)
+	public String updateTicketAssignee(@RequestParam int ticid,@RequestParam int adminid, @RequestParam int assignee){
+		
+		return tickserv.updateAssignee(ticid,adminid,assignee);
+	}
+
+	@RequestMapping(value="/updatestatus", method=RequestMethod.PUT)
+	public String updateStatus(@RequestParam int  ticketid,@RequestParam int userid, @RequestParam int status) {
+		
+		return tickserv.updateStatus(ticketid,userid,status);
+	}
+	
+
+
+
+	
+	
+	
+
+
+	
+	
+}

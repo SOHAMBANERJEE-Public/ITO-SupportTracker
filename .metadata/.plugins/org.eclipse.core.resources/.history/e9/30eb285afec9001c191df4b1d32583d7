@@ -1,0 +1,60 @@
+package com.springboot.support.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+//
+@Entity
+@Table(name="users")
+public class Users {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int usr_id;
+	private String usr_name;
+	private String usr_email;
+	
+	
+	
+	public Users() {
+		super();
+	}
+	
+	public Users(int usr_id, String usr_name, String usr_email) {
+		super();
+		this.usr_id = usr_id;
+		this.usr_name = usr_name;
+		this.usr_email = usr_email;
+	}
+
+	public long getUsr_id() {
+		return usr_id;
+	}
+	public void setUsr_id(int usr_id) {
+		this.usr_id = usr_id;
+	}
+	public String getUsr_name() {
+		return usr_name;
+	}
+	public void setUsr_name(String usr_name) {
+		this.usr_name = usr_name;
+	}
+	public String getUsr_email() {
+		return usr_email;
+	}
+	public void setUsr_email(String usr_email) {
+		this.usr_email = usr_email;
+	}
+
+	@Override
+	public String toString() {
+		return "Users [usr_id=" + usr_id + ", usr_name=" + usr_name + ", usr_email=" + usr_email + "]";
+	}
+	
+	
+	
+
+}

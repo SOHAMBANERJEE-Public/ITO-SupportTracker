@@ -1,0 +1,139 @@
+package com.springboot.support.serviceimpl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.entities.Admin;
+import com.springboot.support.entities.Comments;
+import com.springboot.support.entities.Tickets;
+import com.springboot.support.entities.Users;
+import com.springboot.support.repository.AdminRepository;
+import com.springboot.support.repository.CommentRepository;
+import com.springboot.support.repository.TicketRepository;
+import com.springboot.support.repository.UserRepository;
+import com.springboot.support.services.CommentService;
+
+/**
+ * Service implementation class for Comment.
+ * It contains the business logic for the service methods.
+ * 
+ * @author Soham Banerjee
+ *
+ */
+@Service
+public class CommentServiceImpl implements CommentService {
+	
+	@Autowired
+	CommentRepository comrepo;
+	@Autowired
+	UserRepository urepo;
+	@Autowired
+	AdminRepository addrepo;	
+	@Autowired
+	TicketRepository trepo;
+
+	/**
+	 * Show all the comments in the form of list.
+	 * @return a list of comments.
+	 */
+	@Override
+	public List<Comments> viewAllComment() {
+		List<Comments> comment=comrepo.findAll();
+		if(comment.isEmpty()) {
+			System.out.println("No data found..!");
+			return null;
+		}else {
+		return comment;
+	}
+}
+
+	/**
+	 * Set comments by admin.
+	 * @param ticid holds the ticket id.
+	 * @param adminid holds the admin id.
+	 * @param comments holds the comment details.
+	 * 
+	 * @return return acknowledgement for comment creation or error message if any.
+	 */
+	@Override
+	public String createCommentAdmin(int ticid, int adminid, Comments comments) {
+		
+		Optional<Admin> admin= addrepo.findById(adminid);
+		Optional<Tickets> ticket=trepo.findById(ticid);
+		
+		if(!ticket.isEmpty()) {
+		     if(!admin.isEmpty()) {		
+		         comments.setticketId(ticid);
+		         comments.setUserId(adminid);
+		         comments.setMessage(comments.getMessage());
+		         comrepo.save(comments);
+		         return "Comment save on ticket id: "+ticid;
+		      }
+		     else
+		         return "Invalid Admin id!";
+		}
+		else
+			return "Invalid Ticket Id..!";
+		
+	}
+	
+	/**
+	 * Set comments by user.
+	 * 
+	 * @param ticid holds the ticket id.
+	 * @param usrid holds the user id.
+	 * @param comments holds the comment details. 
+	 * @return return acknowledgement for comment creation or error message if any.
+	 */
+	@Override
+	public String createCommentUser(int ticid, int usrid, Comments comments) {
+		
+		Optional<Users> user= urepo.findById(usrid);
+		Optional<Tickets> ticket=trepo.findById(ticid);
+		
+		if(!ticket.isEmpty()) {
+		     if(!user.isEmpty()) {		
+		         comments.setticketId(ticid);
+		         comments.setUserId(usrid);
+		         comments.setMessage(comments.getMessage());
+		         comrepo.save(comments);
+		         return "Comment save on ticket "+ticid;
+		      }
+		     else
+		         return "Invalid User id!";
+		}
+		else
+			return "Invalid Ticket Id..!";
+		
+	}
+	
+	
+	/**
+	 * Show the comments details.
+	 * It accept the below parameters for checking.
+	 * 
+	 * @param ticid holds ticket id.
+	 * @param usrid holds user id.
+	 * 
+	 */
+	
+	@Override
+	public Comments viewCommentInfo(int ticid, int usrid) {
+		List<Comments> cmntList=comrepo.findAll();
+		
+		for (Comments i : cmntList) {
+			if(i.getticketId()==ticid && i.getUserId()==usrid) {
+			   return i;	
+			}
+		}
+		
+		return null;
+		
+		
+	}
+
+
+}

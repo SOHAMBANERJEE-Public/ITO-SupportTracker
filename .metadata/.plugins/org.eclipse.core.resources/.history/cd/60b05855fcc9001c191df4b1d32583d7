@@ -1,0 +1,47 @@
+insert into admin(admin_id,
+admin_name,admin_emailId ) values
+(1001,'Rod Johnson','rodjohnson@gmail.com');
+
+insert into admin(admin_id,
+admin_name,admin_emailId ) values
+(1002,'Milley Sirus','milleysirus@gmail.com');
+
+
+INSERT INTO users (usr_name,usr_email) SELECT 'James', 'jamesholland@gmail.com' 
+WHERE (SELECT COUNT(*) FROM users WHERE usr_name='James' AND usr_email='jamesholland@gmail.com') = 0;
+
+
+
+INSERT INTO users (usr_name,usr_email) SELECT 'James', 'jamesholland@gmail.com' 
+WHERE (SELECT COUNT(*) FROM users WHERE usr_name='James' AND usr_email='jamesholland@gmail.com') = 0;
+
+
+INSERT INTO category (category_desc) values ("Hardware"),
+("Software"),
+("Access");
+
+
+
+INSERT INTO subcategory (category_id,sub_category_desc) values (1,"Allocate Laptop"),
+(1,"Allocate Hardware"),
+(1,"Hardware Replacement"),
+(2,"Software Installation"),
+(2,"Antivirus"),
+(2,"Email password update"),
+(2,"Laptop slowness issue"),
+(2,"Software issue"),
+(3,"Software Access"),
+(3,"Wifi Access"),
+(3,"Database access"),
+(3,"VPN Access");
+
+INSERT INTO priority (prio_desc) values ("Low"),
+("Medium"),
+("High"),
+("Critical");
+
+INSERT INTO status (status_desc) values ("Open"),
+("Assigned"),
+("In progress"),
+("Completed");
+

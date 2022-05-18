@@ -1,0 +1,29 @@
+package com.springboot.support.services;
+
+import java.util.List;
+
+import com.springboot.support.entities.Comments;
+
+
+public interface CommentService {
+
+	/**
+	 * This method is to create a new comment on any ticket by admin.
+	 * @param ticid holds the ticket id for searching.
+	 * @param adminid holds the admin id. 
+	 * @param comments holds the comments details.
+	 * @return string value for acknowledging that a comment added.
+	 */
+	public String createCommentAdmin(int ticid,int adminid,Comments comments);
+	/**
+	 * This method is to create a new comment on any ticket by user.
+	 * @param ticid holds the ticket id for searching.
+	 * @param usrid holds the user id. 
+	 * @param comments holds the comments details.
+	 * @return string value for acknowledging that a comment added.
+	 */
+	public String createCommentUser(int ticid,int usrid,Comments comments);
+	
+	public List<Comments> viewAllComment();
+	public Comments viewCommentInfo(int ticid,int usrid);
+}

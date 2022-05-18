@@ -1,0 +1,54 @@
+insert into admin(admin_id,
+admin_name,admin_emailId ) values
+(1001,'Rod Johnson','rodjohnson@.com');
+
+insert into admin(admin_id,
+admin_name,admin_emailId ) values
+(1002,'Milley Sirus','milleysirus@.com');
+--INSERT INTO admin_team (admin_id,admin_name,admin_emailId) SELECT 'Rod Johnson', 'rodjohnson@gmail.com' 
+--WHERE (SELECT COUNT(*) FROM admin_team WHERE admin_id='999' AND admin_emailId='rodjohnson@gmail.com') = 0;
+
+INSERT INTO users (usr_name,usr_email) SELECT 'James', 'jamesholland@gmail.com' 
+WHERE (SELECT COUNT(*) FROM users WHERE usr_name='James' AND usr_email='jamesholland@gmail.com') = 0;
+
+--insert into users(
+--usr_name,usr_email) values 
+--('James','jamesholland@gmail.com');
+
+INSERT INTO users (usr_name,usr_email) SELECT 'James', 'jamesholland@gmail.com' 
+WHERE (SELECT COUNT(*) FROM users WHERE usr_name='James' AND usr_email='jamesholland@gmail.com') = 0;
+
+--insert into category(category_id ,
+--category_desc) values 
+--(2,'software');
+INSERT INTO category (category_desc) values ("Hardware"),
+("Software"),
+("Access");
+
+--insert into sub_category(sub_category_id,
+--category_id, 
+--sub_category_desc)values(2,2,'antivirus');
+
+INSERT INTO subcategory (category_id,sub_category_desc) values (1,"Allocate Laptop"),
+(1,"Allocate Hardware"),
+(1,"Hardware Replacement"),
+(2,"Software Installation"),
+(2,"Antivirus"),
+(2,"Email password update"),
+(2,"Laptop slowness issue"),
+(2,"Software issue"),
+(3,"Software Access"),
+(3,"Wifi Access"),
+(3,"Database access"),
+(3,"VPN Access");
+
+INSERT INTO priority (prio_desc) values ("Low"),
+("Medium"),
+("Hig"),
+("Critical");
+
+INSERT INTO status (status_desc) values ("Open"),
+("Assigned"),
+("In progress"),
+("Completed");
+

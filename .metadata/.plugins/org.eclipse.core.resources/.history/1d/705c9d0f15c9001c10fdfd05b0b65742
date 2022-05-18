@@ -1,0 +1,5 @@
+package com.springboot.support.repository;
+
+public interface SubCategoryRepository {
+
+}

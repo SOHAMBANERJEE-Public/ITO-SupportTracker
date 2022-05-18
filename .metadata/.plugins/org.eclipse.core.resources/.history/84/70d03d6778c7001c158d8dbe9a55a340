@@ -1,0 +1,13 @@
+package com.springboot.support.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="priority")
+public class PriorityEntity {
+
+	private int prio_id;
+	private String prio_desc;
+	
+}

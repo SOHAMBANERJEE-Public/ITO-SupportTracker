@@ -1,0 +1,8 @@
+
+public class customException extends Exception{
+	
+	public void NoDataFoundException(String str) {
+		super(str);
+	}
+
+}

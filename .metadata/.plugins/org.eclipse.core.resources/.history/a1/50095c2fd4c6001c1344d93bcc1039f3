@@ -1,0 +1,13 @@
+package com.springboot.support.services;
+
+import java.util.List;
+
+import com.springboot.support.entities.Admin;
+
+
+public interface AdminService {
+
+	public Admin createAdmin(Admin admin);
+	public Admin updateAdmininfo(int admid, Admin admin);
+	public List<Admin> viewAllAdmins();
+}

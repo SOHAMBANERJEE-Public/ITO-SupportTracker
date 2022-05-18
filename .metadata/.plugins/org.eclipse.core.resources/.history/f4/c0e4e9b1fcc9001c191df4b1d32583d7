@@ -1,0 +1,14 @@
+package com.springboot.support.services;
+
+import java.util.List;
+
+import com.springboot.support.entities.Users;
+
+public interface Userservice {
+
+	public Users createUser(Users users);
+	public Users updateUserInfo(int usrid, Users user);
+//	public Users updateUserName(int usrid, String name);
+//	public Users updateUserEmail(int usrid, String email);
+	public List<Users> viewAllUsers();
+}

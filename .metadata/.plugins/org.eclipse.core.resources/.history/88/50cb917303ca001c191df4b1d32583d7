@@ -1,0 +1,44 @@
+package com.springboot.support.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="priority")
+public class PriorityEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int prio_id;
+	private String prio_desc;
+	public int getPrio_id() {
+		return prio_id;
+	}
+	
+	public void setPrio_id(int prio_id) {
+		this.prio_id = prio_id;
+	}
+	public String getPrio_desc() {
+		return prio_desc;
+	}
+	public void setPrio_desc(String prio_desc) {
+		this.prio_desc = prio_desc;
+	}
+
+	public PriorityEntity(int prio_id, String prio_desc) {
+		super();
+		this.prio_id = prio_id;
+		this.prio_desc = prio_desc;
+	}
+
+	public PriorityEntity() {
+		super();
+	}
+	
+	
+	
+	
+	
+}

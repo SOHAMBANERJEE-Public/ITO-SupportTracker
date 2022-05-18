@@ -1,0 +1,262 @@
+package com.springboot.support.serviceimpl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.customdetailshow.TicketComments;
+import com.springboot.support.customdetailshow.ViewAllTicketsDetails;
+import com.springboot.support.customdetailshow.ViewTicketDetailsWithComment;
+import com.springboot.support.entities.Admin;
+import com.springboot.support.entities.Category;
+import com.springboot.support.entities.Comments;
+import com.springboot.support.entities.PriorityEntity;
+import com.springboot.support.entities.StatusEntity;
+import com.springboot.support.entities.SubCategory;
+import com.springboot.support.entities.Tickets;
+import com.springboot.support.entities.Users;
+import com.springboot.support.repository.AdminRepository;
+import com.springboot.support.repository.CategoryRepository;
+import com.springboot.support.repository.CommentRepository;
+import com.springboot.support.repository.PriorityRepository;
+import com.springboot.support.repository.StatusRepository;
+import com.springboot.support.repository.SubCategoryRepository;
+import com.springboot.support.repository.TicketRepository;
+import com.springboot.support.repository.UserRepository;
+import com.springboot.support.services.TicketService;
+
+@Service
+public class TicketServiceImpl  implements TicketService {
+
+	@Autowired
+	TicketRepository trepo;	
+	@Autowired
+	CommentRepository crepo;
+	@Autowired
+	UserRepository urepo;
+	@Autowired
+	CategoryRepository catrepo;
+	@Autowired
+	SubCategoryRepository scatrepo;
+	@Autowired
+	PriorityRepository priorepo;
+	@Autowired
+	AdminRepository adrepo;
+	
+
+	@Autowired
+	CommentServiceImpl commentservice;
+	
+	@Autowired
+	StatusRepository strepo;
+	
+	
+	
+	@Override
+	public String createTicket(Tickets ticket,int usrid) {
+		
+		Optional<PriorityEntity> prio= priorepo.findById(ticket.getPriority_id());
+		
+		int  categoryId,subcategoryId;
+		
+		Category cate=catrepo.findById(ticket.getCategory_id());				
+		SubCategory scat=scatrepo.findById(ticket.getSub_category_id());
+		categoryId=cate.getCategory_id();
+		subcategoryId=scat.getCategory_id();
+		
+		if(categoryId == subcategoryId && !prio.isEmpty()) {
+		
+		      Optional<Users> user=urepo.findById(usrid);
+		      if(user.isEmpty()) {
+			       return "Invalid User Id";
+		        }
+		      else {
+		           ticket.setStatus_id(1);
+		           ticket.setReported_Id(usrid);
+		           ticket.setCreate_datetime(new Date());
+		           ticket.setLast_modified_datetime(new Date());
+		           trepo.save(ticket);
+		           String url= "/tickets/viewticketsbyid?id="+ticket.getTicket_id();
+		           return "Ticket created successfully \n"+url;
+		        }
+		}
+		else {
+			return "Invalid Category or Subcategory or priority";
+		}
+	}
+	
+	@Override
+	public List<ViewAllTicketsDetails> viewAdmTicketList()  {
+		List<ViewAllTicketsDetails> customshow=new ArrayList<>();
+		String  ticcategory="",ticsub_category="",priority;
+		
+	
+		List<Tickets> tickets=trepo.findAll();
+		if(tickets.isEmpty()) {
+			throw new NoDataFoundException("No data found..!");
+			
+			
+		}else {
+			
+		for (Tickets i : tickets) {
+			Category cate=catrepo.findById(i.getCategory_id());				
+			SubCategory scat=scatrepo.findById(i.getSub_category_id());
+			ticcategory=cate.getCategory_desc();
+			ticsub_category=scat.getSub_category_desc();
+			Optional<PriorityEntity> p=priorepo.findById(i.getPriority_id());
+			priority=p.get().getPrio_desc();
+			String url= "/tickets/viewticketsbyid?id="+i.getTicket_id();
+			customshow.add(new ViewAllTicketsDetails(i.getTicket_id(),ticcategory,ticsub_category,i.getAssignee_Id(),i.getSubject(),i.getStatus_id(),priority,url));
+		}
+		return customshow;
+		
+	}
+	}
+	
+	@Override
+    public Object viewTicketById(int id){
+		
+		Optional<Tickets> ticket=trepo.findById(id);
+		String error="Invalid Ticket Id";
+		if(!ticket.isEmpty()) {
+		Tickets t=ticket.get();
+		StatusEntity s=strepo.findById(t.getStatus_id());
+		String status= s.getStatus_desc();
+		List<Comments> c= crepo.findAll();
+		List<TicketComments> ticketComments=new ArrayList<>();
+		String assignee="", ticcategory="",ticsub_category="",reporter,priority;
+		Category cate=catrepo.findById(t.getCategory_id());
+		ticcategory=cate.getCategory_desc();
+		SubCategory scat=scatrepo.findById(t.getSub_category_id());
+		ticsub_category=scat.getSub_category_desc();
+		Optional<Users> user= urepo.findById(t.getAssignee_Id());
+		Optional<Users> user2= urepo.findById(t.getReported_Id());
+		reporter=user2.get().getUsr_name();
+		
+		System.out.println(t.getPriority_id());
+		Optional<PriorityEntity> p=priorepo.findById(t.getPriority_id());
+		priority=p.get().getPrio_desc();
+		
+		if(!user.isEmpty()) {
+			assignee=user.get().getUsr_name();
+		}
+		for (Comments i : c) {
+			if(i.getticketId()==t.getTicket_id())
+			{
+				Optional<Users> u=urepo.findById(i.getUserId());
+				Optional<Admin> ad=adrepo.findById(i.getUserId());
+				String userName="";
+				
+				if(!u.isEmpty()) {
+				userName=u.get().getUsr_name();
+				}
+				else {
+					userName=ad.get().getAdmin_name();
+					
+				}
+				ticketComments.add(new TicketComments(userName,i.getMessage()));
+					
+			}
+		}
+		System.out.println(c);
+		
+		
+		
+		ViewTicketDetailsWithComment vtdc=new ViewTicketDetailsWithComment(t.getTicket_id(),ticcategory,ticsub_category,assignee,reporter,t.getSubject(),t.getDescription(),status,priority,t.getCreate_datetime(),t.getLast_modified_datetime(),ticketComments);
+       
+		return  vtdc;
+		}
+		else
+			return error;
+	}
+
+	@Override
+    public String updateAssignee( int ticid, int adminid, int assign){
+		Optional<Tickets> tickets= trepo.findById(ticid);
+		Optional<Admin> admin=adrepo.findById(adminid);
+		if(tickets.isEmpty()) {
+			return "Invalid Ticket Id..!";
+		}
+		else if(!admin.isEmpty()){
+		Tickets t=tickets.get();
+		int oldassign=t.getAssignee_Id();
+		t.setAssignee_Id(assign);
+		t.setLast_modified_datetime(new Date());
+		trepo.save(t);
+		return "Assignee id change from "+oldassign+" to "+assign;
+		}
+		else {
+			return "Admin Id Invalid..!";
+		}
+	}
+
+	@Override
+    public String updateStatus(int ticketid,int userid,int statusid){		
+		Optional<Tickets> tickets= trepo.findById(ticketid);
+		StatusEntity stat = strepo.findById(tickets.get().getStatus_id());
+		
+		
+		if(tickets.isEmpty()){
+		Tickets t=tickets.get();
+		Users user= urepo.getById(userid);
+		    if(user!=null) {
+		    	 if(stat!=null) {
+		             t.setStatus_id(statusid);
+		             t.setLast_modified_datetime(new Date());
+		             return "update status from "+stat.getStatus_desc()+" to "+statusid;
+		         }
+		    	 else
+		    		 return "Invalid Status Id";
+		    }
+		    else
+		    	return "Invalid User Id..!";
+		}
+		else 
+			return "Invalid Ticket Id..!";
+			
+		
+	}
+
+
+
+	@Override
+	public List<ViewAllTicketsDetails> viewUsrTicketList( int usrid) throws NoDataFoundException {
+		List<ViewAllTicketsDetails> customshow=new ArrayList<>();
+	
+		String  ticcategory="",ticsub_category="", priority="";
+		List<Tickets> tickets=trepo.findAll(); 
+		
+		
+		if(tickets.isEmpty()) {
+			throw new NoDataFoundException("No data found..!");
+			
+		}else {
+			
+		for (Tickets i : tickets) {
+			if(i.getReported_Id()==usrid) {
+				Category cate=catrepo.findById(i.getCategory_id());				
+				SubCategory scat=scatrepo.findById(i.getSub_category_id());
+				ticcategory=cate.getCategory_desc();
+				ticsub_category=scat.getSub_category_desc();
+				Optional<PriorityEntity> p=priorepo.findById(i.getPriority_id());
+				priority=p.get().getPrio_desc();
+				
+			String url= "/tickets/viewticketsbyid?id="+i.getTicket_id();
+			customshow.add(new ViewAllTicketsDetails(i.getTicket_id(),ticcategory,ticsub_category,i.getAssignee_Id(),i.getSubject(),i.getStatus_id(),priority,url));
+			}
+		}
+		return customshow;
+		
+	}
+	}
+	
+	
+	
+
+}

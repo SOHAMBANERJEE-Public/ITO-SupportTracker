@@ -1,0 +1,18 @@
+package com.springboot.support.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.springboot.support.entities.Comments;
+
+/**
+ * Repository for Comment which extends JpaRepository.
+ * 
+ * 
+ * @author Soham Banerjee
+ *
+ */
+@Repository
+public interface CommentRepository extends JpaRepository<Comments, Long> {
+
+	Comments findById(long id);
+}

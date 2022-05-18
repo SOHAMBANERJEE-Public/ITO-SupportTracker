@@ -1,0 +1,87 @@
+package com.springboot.support.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="comments")
+public class Comments {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long comment_id;
+	private int ticketId,	userId;
+	private String message;
+	
+	
+	public Comments() {
+		
+	}
+
+
+	public Comments( int ticketId, int userId, String message) {
+		super();
+		
+		this.ticketId = ticketId;
+		this.userId = userId;
+		this.message = message;
+	}
+
+
+	public long getComment_id() {
+		return comment_id;
+	}
+
+
+	public void setComment_id(long comment_id) {
+		this.comment_id = comment_id;
+	}
+
+
+	public long getticketId() {
+		return ticketId;
+	}
+
+
+	public void setticketId(int ticketId) {
+		this.ticketId = ticketId;
+	}
+
+
+	public long getuserId() {
+		return userId;
+	}
+
+
+	public void setuserId(int userId) {
+		this.userId = userId;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	
+
+
+
+	@Override
+	public String toString() {
+		return "Comments [comment_id=" + comment_id + ", ticketId=" + ticketId + ", userId=" + userId + ", message="
+				+ message + "]";
+	}
+	
+	
+	
+	
+
+}

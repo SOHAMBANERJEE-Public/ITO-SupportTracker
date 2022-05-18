@@ -1,0 +1,45 @@
+package com.springboot.support.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.database.Comments;
+import com.springboot.support.database.Users;
+import com.springboot.support.repository.CommentRepository;
+import com.springboot.support.services.CommentService;
+
+@Service
+public class CommentServiceImpl implements CommentService {
+	
+	@Autowired
+	CommentRepository comrepo;
+
+	@Override
+	public Comments createComment(Comments comments) {
+		
+		return comrepo.save(comments);
+	}
+
+	@Override
+	public Comments updateCommentInfo(int cmid, Comments comments) {
+		Comments com=comrepo.findById(cmid);
+		com.setMessage(comments.getMessage());
+		return comrepo.save(com);
+	}
+
+	@Override
+	public List<Comments> viewAllComment() {
+		List<Comments> comment=comrepo.findAll();
+		if(comment.isEmpty()) {
+			System.out.println("No data found..!");
+			return null;
+		}else {
+		return comment;
+	}
+		}
+
+
+
+}

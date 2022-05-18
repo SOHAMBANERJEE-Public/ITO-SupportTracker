@@ -1,0 +1,58 @@
+package com.springboot.support.controllers;
+
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.support.entities.Users;
+import com.springboot.support.serviceimpl.UsersServiceImpl;
+
+
+
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+	
+	@Autowired
+	UsersServiceImpl userserviceimpl;
+	
+	@RequestMapping(value="/createusers", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public Users createUsers(@RequestBody Users user){
+		
+		return userserviceimpl.createUser(user);
+	}
+	
+	@RequestMapping(value="/viewallusers", method=RequestMethod.GET)
+	public List<Users> showAllUsers(){
+		
+		return userserviceimpl.viewAllUsers();
+	}
+	
+	@RequestMapping(value="/updateuserinfo", method=RequestMethod.PUT)
+	public Users updateInfo( @RequestParam int usrid,@RequestBody Users user){
+		
+		return userserviceimpl.updateUserInfo(usrid, user);
+	}
+	
+	
+	
+//	@RequestMapping(value="/updateusername", method=RequestMethod.PUT)
+//	public Users updateName(@RequestParam int id, @RequestParam String name ){
+//		
+//		return userserviceimpl.updateUserName(id,name);
+//	}
+//	@RequestMapping(value="/updateuserinfo", method=RequestMethod.PUT)
+//	public Users updateEmail(@RequestParam int id, @RequestParam String email){
+//		
+//		return userserviceimpl.updateUserEmail(id,email);
+//	}
+}

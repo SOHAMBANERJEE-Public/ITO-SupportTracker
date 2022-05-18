@@ -1,0 +1,6 @@
+package com.springboot.support.customdetailshow;
+
+public class TicketComments {
+	private String user_name;
+	private String comments;
+}

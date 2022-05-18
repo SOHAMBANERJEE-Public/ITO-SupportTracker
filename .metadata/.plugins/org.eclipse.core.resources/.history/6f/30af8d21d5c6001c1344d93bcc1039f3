@@ -1,0 +1,36 @@
+package com.springboot.support.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.entities.Admin;
+import com.springboot.support.repository.AdminRepository;
+import com.springboot.support.services.AdminService;
+
+@Service
+public class AdminServiceImpl implements AdminService{
+
+	@Autowired
+	AdminRepository adrepo;
+	
+	@Override
+	public Admin createAdmin(Admin admin) {
+		return null;
+	}
+
+	@Override
+	public Admin updateAdmininfo(int admid, Admin admin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Admin> viewAllAdmins() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

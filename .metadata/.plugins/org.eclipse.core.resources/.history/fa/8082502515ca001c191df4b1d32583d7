@@ -1,0 +1,100 @@
+package com.springboot.support.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+/**
+ * Date: 02-May-2022
+ * It is an Entity class for Admin.
+ * @author Soham Banerjee
+ *
+ *
+ */
+@Entity
+@Table(name="admin")
+public class Admin {
+	 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int admin_id;	
+	private String admin_name;
+	private String admin_emailId;
+	
+	
+	public Admin() {
+		super();
+	}
+	
+	
+	/** 
+	 * @param admin_id stores the admin id.
+	 * @param admin_name stores the name.
+	 * @param admin_emailId stores the admin's email id.
+	 */
+	public Admin(int admin_id, String admin_name, String admin_emailId) {
+		super();
+		this.admin_id = admin_id;
+		this.admin_name = admin_name;
+		this.admin_emailId = admin_emailId;
+	}
+
+	
+
+	/**
+	 * Getter method for Admin Id
+	 * @return Integer value
+	 */
+	public int getAdmin_id() {
+		return admin_id;
+	}
+	
+	/**
+	 * Setter method for Admin Id.
+	 * @param admin_id is an Integer type value.
+	 */
+	public void setAdmin_id(int admin_id) {
+		this.admin_id = admin_id;
+	}
+	/**
+	 * Getter method for Admin Name.
+	 * @return String value.
+	 */
+	public String getAdmin_name() {
+		return admin_name;
+	}
+	/**
+	 * Setter method for Admin Name.
+	 * @param admin_name 
+	 */
+	public void setAdmin_name(String admin_name) {
+		this.admin_name = admin_name;
+	}
+	/**
+	 * Getter for Admin email id.
+	 * @return String value.
+	 */
+	public String getAdmin_emailId() {
+		return admin_emailId;
+	}
+	/**
+	 * Stter method for Admin email id.
+	 * @param admin_emailId
+	 */
+	public void setAdmin_emailId(String admin_emailId) {
+		this.admin_emailId = admin_emailId;
+	}
+
+	/**
+	 *It is a toString method for returning string value
+	 */
+	@Override
+	public String toString() {
+		return "Admin [admin_id=" + admin_id + ", admin_name=" + admin_name + ", admin_emailId=" + admin_emailId + "]";
+	}
+	
+	
+	
+
+}

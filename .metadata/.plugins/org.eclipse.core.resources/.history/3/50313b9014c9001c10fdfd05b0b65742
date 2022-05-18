@@ -1,0 +1,12 @@
+package com.springboot.support.entities;
+
+import javax.persistence.Entity;
+
+@Entity
+public class SubCategory {
+	
+	 private int sub_category_id ;
+	 private int category_id; 
+	 private String sub_category_desc;
+
+}

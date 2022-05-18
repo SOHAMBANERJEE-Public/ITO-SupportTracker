@@ -1,0 +1,71 @@
+package com.springboot.support.controllers;
+
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.support.customdetailshow.ViewAllTicketsDetails;
+
+import com.springboot.support.entities.Tickets;
+import com.springboot.support.serviceimpl.TicketServiceImpl;
+
+
+
+
+@RestController
+@RequestMapping("/tickets")
+public class TicketsController {
+	
+	@Autowired
+	TicketServiceImpl tickservimpl;
+	
+	@RequestMapping(value="/createticket", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public String crtTicket(@RequestBody Tickets tick, @RequestParam long usrid) {
+		
+		return tickservimpl.createTicket(tick, usrid);
+	}
+	
+	@RequestMapping(value="/viewtickets", method=RequestMethod.GET)
+	public List<ViewAllTicketsDetails> viewAllTicket(HttpServletResponse res){
+		
+		return tickservimpl.viewTicketList();
+	}
+	
+	@RequestMapping(value="/viewticketsbyid", method=RequestMethod.GET)
+	public Optional<Tickets> viewTicketbyId(@RequestParam long id){
+		
+		return tickservimpl.viewTicketById(id);
+	}
+	
+	@RequestMapping(value="/updateassignee", method=RequestMethod.PUT)
+	public Tickets updateTicketAssignee(@RequestParam long id, @RequestParam String assign){
+		
+		return tickservimpl.updateAssignee(id,assign);
+	}
+
+	@RequestMapping(value="/updatestatus", method=RequestMethod.PUT)
+	public Tickets updateStatus(@RequestParam long  id, @RequestParam int status) {
+		
+		return tickservimpl.updateStatus(id,status);
+	}
+	
+
+
+
+	
+	
+	
+
+
+	
+	
+}

@@ -1,0 +1,109 @@
+package com.springboot.support.serviceimpl;
+
+
+import java.util.List;
+import java.util.Optional;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+//import org.springframework.web.client.HttpClientErrorException.BadRequest;
+
+import com.springboot.support.entities.Users;
+import com.springboot.support.repository.UserRepository;
+import com.springboot.support.services.Userservice;
+
+@Service
+public class UsersServiceImpl implements Userservice{
+
+	@Autowired
+	UserRepository usrepo;	
+	
+	@Override
+	public Users createUser(Users users) {
+		
+		return usrepo.save(users);
+	}
+	
+//	@Override
+//	public Users updateUserName(int usrid, String name) {
+//		Optional<Users> users= usrepo.findById(usrid);
+//		Users update=users.get();
+//		if(users.isEmpty()) {
+//			System.out.println("User not present");
+//			return null;
+//		}
+//		else {
+//			update.setUsr_name(name);
+//			return usrepo.save(update);
+//		}
+//		
+//	}
+	
+	
+	@Override
+	public Users updateUserInfo(int usrid, Users user) {
+		Optional<Users> users= usrepo.findById(usrid);
+		Users update=users.get();
+		
+		if(users.isEmpty()) {
+//			throw new BadRequest("User not found..!" );
+			System.out.println("User not present");
+			return null;
+		}
+		else {
+			
+			if(user.getUsr_name()==null) {
+				
+				if(user.getUsr_email()==null) {
+					System.out.println("Input data for update...!");
+				}
+				else {
+					update.setUsr_email(user.getUsr_email());
+					
+				}
+			}
+			else if(user.getUsr_email()==null)
+			{ 
+				update.setUsr_name(user.getUsr_name());
+			}
+			else
+			{
+				update.setUsr_name(user.getUsr_name());
+				update.setUsr_email(user.getUsr_email());
+			}
+			
+			return usrepo.save(update);
+		}
+	}
+	
+	@Override
+	public List<Users> viewAllUsers() {
+		List<Users> users=usrepo.findAll();
+		if(users.isEmpty()) {
+			System.out.println("No data found..!");
+		    return users;
+		}else {
+		return users;
+		
+	}
+	
+	
+	}
+
+//	@Override
+//	public Users updateUserEmail(int usrid, String email) {
+//		Optional<Users> users= usrepo.findById(usrid);
+//		Users update=users.get();
+//		if(users.isEmpty()) {
+//			System.out.println("User not present");
+//			return null;
+//		}
+//		else {
+//			update.setUsr_email(email);
+//			return usrepo.save(update);
+//		}
+//	}
+	
+	
+}

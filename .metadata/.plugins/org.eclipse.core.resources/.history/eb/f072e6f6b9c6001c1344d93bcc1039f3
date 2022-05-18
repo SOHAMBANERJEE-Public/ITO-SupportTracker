@@ -1,0 +1,28 @@
+--insert into admin_team(admin_id,
+--name,emailId ) values
+--(101,'Rod Johnson','rodjohnson@.com');
+INSERT INTO admin_team (admin_id,admin_name,admin_emailId) SELECT 'Rod Johnson', 'rodjohnson@gmail.com' 
+WHERE (SELECT COUNT(*) FROM admin_id WHERE admin_id='999' AND usr_email='rodjohnson@gmail.com') = 0;
+
+INSERT INTO users (usr_name,usr_email) SELECT 'James', 'jamesholland@gmail.com' 
+WHERE (SELECT COUNT(*) FROM users WHERE usr_name='James' AND usr_email='jamesholland@gmail.com') = 0;
+
+--insert into users(
+--usr_name,usr_email) values 
+--('James','jamesholland@gmail.com');
+
+INSERT INTO users (usr_name,usr_email) SELECT 'James', 'jamesholland@gmail.com' 
+WHERE (SELECT COUNT(*) FROM users WHERE usr_name='James' AND usr_email='jamesholland@gmail.com') = 0;
+
+--insert into category(category_id ,
+--category_desc) values 
+--(2,'software');
+INSERT INTO category (category_id ,category_desc) SELECT 999, 'something' 
+WHERE (SELECT COUNT(*) FROM category WHERE category_id=999 AND category_desc='something') = 0;
+
+--insert into sub_category(sub_category_id,
+--category_id, 
+--sub_category_desc)values(2,2,'antivirus');
+
+INSERT INTO sub_category (sub_category_id ,sub_category_desc) SELECT 999, 'sub category desc' 
+WHERE (SELECT COUNT(*) FROM sub_category WHERE sub_category_id=999 AND sub_category_desc='sub category desc') = 0;

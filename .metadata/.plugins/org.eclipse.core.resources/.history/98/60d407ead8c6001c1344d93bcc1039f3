@@ -1,0 +1,5 @@
+package com.springboot.support.controllers;
+
+public class AdminController {
+
+}

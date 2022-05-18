@@ -1,0 +1,29 @@
+package com.springboot.support.services;
+
+import java.util.List;
+
+import com.springboot.support.entities.Users;
+
+public interface UserService {
+
+	/**
+	 * Creates new user by setting the details from the below define parameters.
+	 * @param users Holds all the details of the user.
+	 * @return
+	 */
+	public Users createUser(Users users);
+	
+	/**
+	 * Helps to update the user information by replacing existing with below define parameter values.
+	 * @param usrid holds the user id.
+	 * @param user hold the data which will be updated.
+	 * @return
+	 */
+	public Users updateUserInfo(int usrid, Users user);
+    
+	/**
+	 * Show list of all the users.
+	 * @return
+	 */
+	public List<Users> viewAllUsers();
+}

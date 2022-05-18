@@ -1,0 +1,47 @@
+package com.springboot.support.customdetailshow;
+/**
+ * Normal class thats holds commenter name
+ * and the comment.
+ * Its use for showing purpose.
+ * 
+ * @author Soham Banerjee
+ *
+ */
+public class TicketComments {
+	private String user_name;
+	private String comments;
+	
+	/**
+	 * Its a parameterized constructor for TicketComments class.
+	 * @param un holds the user name.
+	 * @param c holds the comment details.
+	 */
+	public TicketComments(String un,String c)
+	{
+		user_name=un;
+		comments=c;
+	}
+	
+	/**
+	 * Getter function for getting the user name
+	 * @return the name of the commenter.
+	 */
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	/**
+	 * Getter function for getting the comments.
+	 * @return the comments of the commenter.
+	 */
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	
+}

@@ -1,0 +1,24 @@
+package com.springboot.support.services;
+
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.customdetailshow.ViewAllTicketsDetails;
+import com.springboot.support.entities.Tickets;
+
+   @Service
+   public interface TicketService {
+	   
+	   public String createTicket(Tickets ticket, long usrid);
+       public List<ViewAllTicketsDetails> viewTicketList();
+       public Optional<Tickets> viewTicketById(long id);
+       public Tickets updateAssignee( long id, String assign);
+       public Tickets updateStatus( long id, int statusid);
+       public Object updateComment( long ticid,long usrid, String comment);
+      
+		
+	
+}

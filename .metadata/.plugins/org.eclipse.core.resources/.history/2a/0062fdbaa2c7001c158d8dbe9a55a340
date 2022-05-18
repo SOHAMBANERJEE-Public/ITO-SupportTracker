@@ -1,0 +1,11 @@
+package com.springboot.support.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.springboot.support.entities.Comments;
+
+public interface CommentRepository extends JpaRepository<Comments, Integer> {
+
+	Comments findById(int id);
+	Comments findByTicketId(int tid);
+}

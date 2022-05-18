@@ -1,0 +1,18 @@
+insert into admin_team(admin_id,
+name,emailId ) values
+(101,'Rod Johnson','rodjohnson@.com');
+
+insert into users(
+usr_name,usr_email) values 
+('James','jamesholland@gmail.com');
+
+Insert into users (usr_name,usr_email) values ('James','jamesholland@gmail.com') 
+    ONLY IF there are no rows where usr_name='James' and usr_emails='jamesholland@gmail.com' 
+
+insert into category(category_id ,
+category_desc) values 
+(2,'software');
+
+insert into sub_category(sub_category_id,
+category_id, 
+sub_category_desc)values(2,2,'antivirus');

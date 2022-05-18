@@ -1,0 +1,55 @@
+package com.springboot.support.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.support.entities.Comments;
+import com.springboot.support.serviceimpl.CommentServiceImpl;
+import com.springboot.support.services.CommentService;
+
+@RestController
+@RequestMapping("/comment")
+public class CommentController {
+	
+	@Autowired
+	CommentService commentservice;
+	
+	@RequestMapping(value="/createcommentusr", method = RequestMethod.POST,consumes = "application/json", produces = "application/json")
+	public String createComment(@RequestParam int ticid,@RequestParam int usrid,  @RequestBody Comments comments) {
+		
+		return commentservice.createCommentUser(ticid,usrid,comments);
+	}
+	
+	@RequestMapping(value="/createcommentadmin", method = RequestMethod.POST,consumes = "application/json", produces = "application/json")
+	public String createCommentAdmin(@RequestParam int ticid,@RequestParam int adminid,  @RequestBody Comments comments) {
+		
+		return commentservice.createCommentAdmin(ticid,adminid,comments);
+	}
+	
+	@RequestMapping(value="/updatecomment", method = RequestMethod.PUT,consumes = "application/json", produces = "application/json")
+	public Comments updateateComment(@RequestParam int usrid,@RequestBody Comments comments) {
+		
+		return commentservice.updateCommentInfo(usrid,comments);
+	}
+	
+	@RequestMapping(value="/viewallcomment", method = RequestMethod.GET)
+	public List<Comments> viewComments() {
+		
+		return commentservice.viewAllComment();
+	}
+	
+	@RequestMapping(value="/viewcomment", method = RequestMethod.PUT,consumes = "application/json", produces = "application/json")
+	public Comments viewComment(@RequestParam int ticid,@RequestParam int usrid) {
+		
+		return commentservice.viewCommentInfo(ticid,usrid);
+	}
+	
+	
+
+}

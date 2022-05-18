@@ -1,0 +1,9 @@
+package com.springboot.support.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.springboot.support.entities.PriorityEntity;
+
+public interface PriorityRepository extends JpaRepository<PriorityEntity, Integer> {
+	PriorityEntity findById(int id);
+}

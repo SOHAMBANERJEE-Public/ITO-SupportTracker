@@ -1,0 +1,5 @@
+package com.springboot.support.entities;
+
+public class StatusEntity {
+
+}

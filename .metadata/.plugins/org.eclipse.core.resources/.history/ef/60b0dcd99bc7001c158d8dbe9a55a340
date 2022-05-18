@@ -1,0 +1,48 @@
+package com.springboot.support.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.support.entities.Comments;
+import com.springboot.support.serviceimpl.CommentServiceImpl;
+
+@RestController
+@RequestMapping("/comment")
+public class CommentController {
+	
+	@Autowired
+	CommentServiceImpl commentserviceimpl;
+	
+	@RequestMapping(value="/createcomment", method = RequestMethod.POST,consumes = "application/json", produces = "application/json")
+	public Comments createComment(@RequestParam int ticid,@RequestParam int usrid,  @RequestBody Comments comments) {
+		
+		return commentserviceimpl.createComment(ticid,usrid,comments);
+	}
+	
+	@RequestMapping(value="/updatecomment", method = RequestMethod.PUT,consumes = "application/json", produces = "application/json")
+	public Comments updateateComment(@RequestParam int usrid,@RequestBody Comments comments) {
+		
+		return commentserviceimpl.updateCommentInfo(usrid,comments);
+	}
+	
+	@RequestMapping(value="/viewallcomment", method = RequestMethod.GET)
+	public List<Comments> viewComments() {
+		
+		return commentserviceimpl.viewAllComment();
+	}
+	
+	@RequestMapping(value="/updatecomment", method = RequestMethod.PUT,consumes = "application/json", produces = "application/json")
+	public Comments viewComment(@RequestParam int usrid,@RequestParam int usrid) {
+		
+		return commentserviceimpl.updateCommentInfo(usrid,usrid);
+	}
+	
+	
+
+}

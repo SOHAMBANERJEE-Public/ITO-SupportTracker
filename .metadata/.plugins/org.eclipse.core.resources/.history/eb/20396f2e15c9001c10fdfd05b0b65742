@@ -1,0 +1,9 @@
+package com.springboot.support.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.springboot.support.entities.SubCategory;
+
+public interface SubCategoryRepository  extends JpaRepository<SubCategory, Integer>{
+
+}

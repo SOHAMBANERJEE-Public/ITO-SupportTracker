@@ -1,0 +1,72 @@
+package com.springboot.support.serviceimpl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.entities.Admin;
+import com.springboot.support.entities.Users;
+import com.springboot.support.repository.AdminRepository;
+import com.springboot.support.services.AdminService;
+
+@Service
+public class AdminServiceImpl implements AdminService{
+
+	@Autowired
+	AdminRepository adrepo;
+	
+	@Override
+	public Admin createAdmin(Admin admin) {
+		return adrepo.save(admin);
+	}
+
+	@Override
+	public Admin updateAdmininfo(int admid, Admin admin) {
+		Optional<Admin> add=adrepo.findById(admid);
+		Admin update=add.get();
+		
+			
+			if(add.isEmpty()) {
+				System.out.println("Admin data not present");
+				return null;
+			}
+			else {
+				
+				if(update.getAdmin_name()==null) {
+					
+					if(update.getAdmin_emailId()==null) {
+						System.out.println("Input data for update...!");
+					}
+					else {
+						update.setAdmin_emailId(admin.getAdmin_emailId());
+						
+					}
+				}
+				else if(update.getAdmin_emailId()==null)
+				{ 
+					update.setAdmin_name(admin.getAdmin_name());
+				}
+				else
+				{
+					update.setAdmin_name(admin.getAdmin_name());
+					update.setAdmin_emailId(admin.getAdmin_emailId());
+				}
+				
+				return adrepo.save(update);
+			}
+	}
+
+	@Override
+	public List<Admin> viewAllAdmins() {
+		List<Admin> admin=adrepo.findAll();
+		if(admin.isEmpty()) {
+			System.out.println("No data found..!");
+		    return admin;
+		}else {
+		return admin;
+	}
+
+	
+}

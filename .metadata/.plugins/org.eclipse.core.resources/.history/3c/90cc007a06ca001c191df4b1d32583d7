@@ -1,0 +1,20 @@
+package com.springboot.support.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.springboot.support.entities.Category;
+
+/**
+ * Repository for Category which extends JpaRepository.
+ * JpaRepository has predefine methods which we will access.
+ * findById() is one of those predefine methods which is override here. 
+ * 
+ * @author Soham Banerjee
+ *
+ */
+@Repository
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
+
+	Category findById(int id);
+}

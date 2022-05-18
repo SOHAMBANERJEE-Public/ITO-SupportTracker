@@ -1,0 +1,69 @@
+package com.springboot.support.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.entities.Comments;
+
+import com.springboot.support.repository.CommentRepository;
+import com.springboot.support.services.CommentService;
+
+@Service
+public class CommentServiceImpl implements CommentService {
+	
+	@Autowired
+	CommentRepository comrepo;
+
+
+
+	@Override
+	public Comments updateCommentInfo(int cmid, Comments comments) {
+		Comments com=comrepo.findById(cmid);
+		com.setMessage(comments.getMessage());
+		return comrepo.save(com);
+	}
+
+	
+
+
+
+	@Override
+	public Comments createComment(int ticid, int usrid, Comments comments) {
+		comments.setTicket_id(ticid);
+		comments.setUser_id(usrid);
+		comments.setMessage(comments.getMessage());
+		return comrepo.save(comments);
+	}
+
+
+
+
+
+	@Override
+	public Comments viewComment(long ticid, long usrid) {
+      
+		List<Comments> comments = comrepo.findAll();
+		
+		boolean found=false;
+		
+		if(comments.isEmpty()) {
+			return "!..No Record Found..!";
+		}else {
+		for (Comments i : comments) {
+			if(i.getTicket_id()==ticid && i.getUser_id()==usrid) {
+				
+				found=true;
+				i.setMessage(message);
+			    crepo.save(i);
+				
+			
+				}
+
+		return null;
+	}
+
+
+
+}

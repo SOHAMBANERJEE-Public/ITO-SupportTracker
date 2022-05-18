@@ -1,0 +1,114 @@
+package com.springboot.support.serviceimpl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.support.entities.Admin;
+import com.springboot.support.entities.Comments;
+import com.springboot.support.entities.Tickets;
+import com.springboot.support.entities.Users;
+import com.springboot.support.repository.AdminRepository;
+import com.springboot.support.repository.CommentRepository;
+import com.springboot.support.repository.TicketRepository;
+import com.springboot.support.repository.UserRepository;
+import com.springboot.support.services.CommentService;
+
+@Service
+public class CommentServiceImpl implements CommentService {
+	
+	@Autowired
+	CommentRepository comrepo;
+	@Autowired
+	UserRepository urepo;
+	@Autowired
+	AdminRepository addrepo;
+	
+	@Autowired
+	TicketRepository trepo;
+
+
+	@Override
+	public Comments updateCommentInfo(int cmid, Comments comments) {
+		Comments com=comrepo.findById(cmid);
+		com.setMessage(comments.getMessage());
+		return comrepo.save(com);
+	}
+	
+
+
+	@Override
+	public List<Comments> viewAllComment() {
+		List<Comments> comment=comrepo.findAll();
+		if(comment.isEmpty()) {
+			System.out.println("No data found..!");
+			return null;
+		}else {
+		return comment;
+	}
+		}
+
+	@Override
+	public String createCommentAdmin(int ticid, int adminid, Comments comments) {
+		
+		Optional<Admin> admin= addrepo.findById(adminid);
+		Optional<Tickets> ticket=trepo.findById(ticid);
+		
+		if(!ticket.isEmpty()) {
+		     if(!admin.isEmpty()) {		
+		         comments.setticketId(ticid);
+		         comments.setUserId(adminid);
+		         comments.setMessage(comments.getMessage());
+		         comrepo.save(comments);
+		         return "Comment save on ticket "+ticid;
+		      }
+		     else
+		         return "Invalid Admin id!";
+		}
+		else
+			return "Invalid Ticket Id..!";
+		
+	}
+	
+	@Override
+	public String createCommentUser(int ticid, int usrid, Comments comments) {
+		
+		Optional<Users> user= urepo.findById(usrid);
+		Optional<Tickets> ticket=trepo.findById(ticid);
+		
+		if(!ticket.isEmpty()) {
+		     if(!user.isEmpty()) {		
+		         comments.setticketId(ticid);
+		         comments.setUserId(usrid);
+		         comments.setMessage(comments.getMessage());
+		         comrepo.save(comments);
+		         return "Comment save on ticket "+ticid;
+		      }
+		     else
+		         return "Invalid User id!";
+		}
+		else
+			return "Invalid Ticket Id..!";
+		
+	}
+	
+	
+	@Override
+	public Comments viewCommentInfo(int ticid, int usrid) {
+		List<Comments> cmntList=comrepo.findAll();
+		
+		for (Comments i : cmntList) {
+			if(i.getticketId()==ticid && i.getUserId()==usrid) {
+			   return i;	
+			}
+		}
+		
+		return null;
+		
+		
+	}
+
+
+}

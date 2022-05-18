@@ -1,0 +1,18 @@
+insert into admin_team(admin_id,
+name,emailId ) values
+(101,'Rod Johnson','rodjohnson@.com');
+
+--insert into users(
+--usr_name,usr_email) values 
+--('James','jamesholland@gmail.com');
+
+INSERT INTO users (usr_name,usr_email) SELECT 'James', 'jamesholland@gmail.com' 
+WHERE (SELECT COUNT(*) FROM users WHERE usr_name='James' AND usr_email='jamesholland@gmail.com') = 0;
+
+insert into category(category_id ,
+category_desc) values 
+(2,'software');
+
+insert into sub_category(sub_category_id,
+category_id, 
+sub_category_desc)values(2,2,'antivirus');

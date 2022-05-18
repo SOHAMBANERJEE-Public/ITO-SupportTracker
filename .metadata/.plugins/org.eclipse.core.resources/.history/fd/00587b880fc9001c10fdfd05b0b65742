@@ -1,0 +1,216 @@
+package com.springboot.support.entities;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Tickets")
+public class Tickets {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int ticket_id; 
+	
+	private String category_id;
+	private String sub_category_id;
+	private int assignee_Id;
+	private int reported_Id,status_id; 
+	private String subject,
+	description,
+    priority_id;
+	private Date create_datetime,
+	last_modified_datetime;
+	
+	public Tickets() {}
+	
+	
+	
+	
+	public Tickets( String category_id, String sub_category_id, int assignee_Id, int reported_Id,
+			String subject, String description, int status_id, String priority_id, Date create_datetime,
+			Date last_modified_datetime) {
+		super();
+		
+		this.category_id = category_id;
+		this.sub_category_id = sub_category_id;
+		this.assignee_Id = assignee_Id;
+		this.reported_Id = reported_Id;
+		this.subject = subject;
+		this.description = description;
+		this.status_id = status_id;
+		this.priority_id = priority_id;
+		this.create_datetime = new Date();
+		this.last_modified_datetime = new Date();
+	}
+
+
+
+
+	
+	public int getTicket_id() {
+		return ticket_id;
+	}
+
+
+
+
+	public void setTicket_id(int ticket_id) {
+		this.ticket_id = ticket_id;
+	}
+
+
+
+
+	public String getCategory_id() {
+		return category_id;
+	}
+
+
+
+
+	public void setCategory_id(String category_id) {
+		this.category_id = category_id;
+	}
+
+
+
+
+	public String getSub_category_id() {
+		return sub_category_id;
+	}
+
+
+
+
+	public void setSub_category_id(String sub_category_id) {
+		this.sub_category_id = sub_category_id;
+	}
+
+
+
+
+	public int getAssignee_Id() {
+		return assignee_Id;
+	}
+
+
+
+
+	public void setAssignee_Id(int assignee_Id) {
+		this.assignee_Id = assignee_Id;
+	}
+
+
+
+
+	public int getReported_Id() {
+		return reported_Id;
+	}
+
+
+
+
+	public void setReported_Id(int reported_Id) {
+		this.reported_Id = reported_Id;
+	}
+
+
+
+
+	public String getSubject() {
+		return subject;
+	}
+
+
+
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+
+	public int getStatus_id() {
+		return status_id;
+	}
+
+
+
+
+	public void setStatus_id(int status_id) {
+		this.status_id = status_id;
+	}
+
+
+
+
+	public String getPriority_id() {
+		return priority_id;
+	}
+
+
+
+
+	public void setPriority_id(String priority_id) {
+		this.priority_id = priority_id;
+	}
+
+
+
+
+	public Date getCreate_datetime() {
+		return create_datetime;
+	}
+
+
+
+
+	public void setCreate_datetime(Date create_datetime) {
+		this.create_datetime = create_datetime;
+	}
+
+
+
+
+	public Date getLast_modified_datetime() {
+		return last_modified_datetime;
+	}
+
+
+
+
+	public void setLast_modified_datetime(Date last_modified_datetime) {
+		this.last_modified_datetime = last_modified_datetime;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Tickets [ticket_id=" + ticket_id + ", category_id=" + category_id + ", sub_category_id="
+				+ sub_category_id + ", assignee_Id=" + assignee_Id + ", subject="+ subject +  "]";
+	}
+	
+
+}

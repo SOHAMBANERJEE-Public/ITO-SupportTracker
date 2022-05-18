@@ -1,0 +1,104 @@
+package com.springboot.support.customdetailshow;
+
+public class ViewAllTicketsDetails {
+	private int ticket_id; 
+	private String category_id;
+	private String sub_category_id,status_id;
+	private int assignee_Id;
+	private String subject,	priority_id;
+	String url;
+		
+	
+	public ViewAllTicketsDetails() {
+		super();
+	}
+	
+	
+	public ViewAllTicketsDetails(int ticket_id, String category_id, String sub_category_id, int assignee_Id,
+			String subject, String status_id, String priority_id, String url) {
+		super();
+		this.ticket_id = ticket_id;
+		this.category_id = category_id;
+		this.sub_category_id = sub_category_id;
+		this.assignee_Id = assignee_Id;
+		this.subject = subject;
+		this.status_id = status_id;
+		this.priority_id = priority_id;
+		this.url = url;
+	}
+
+
+	public int getTicket_id() {
+		return ticket_id;
+	}
+
+	public void setTicket_id(int ticket_id) {
+		this.ticket_id = ticket_id;
+	}
+
+	public String getCategory_id() {
+		return category_id;
+	}
+
+	public void setCategory_id(String category_id) {
+		this.category_id = category_id;
+	}
+
+	public String getSub_category_id() {
+		return sub_category_id;
+	}
+
+	public void setSub_category_id(String sub_category_id) {
+		this.sub_category_id = sub_category_id;
+	}
+
+	public int getAssignee_Id() {
+		return assignee_Id;
+	}
+
+	public void setAssignee_Id(int assignee_Id) {
+		this.assignee_Id = assignee_Id;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getStatus_id() {
+		return status_id;
+	}
+
+	public void setStatus_id(String status_id) {
+		this.status_id = status_id;
+	}
+
+	public String getPriority_id() {
+		return priority_id;
+	}
+
+	public void setPriority_id(String priority_id) {
+		this.priority_id = priority_id;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomShow [ticket_id=" + ticket_id + ", category_id=" + category_id + ", sub_category_id="
+				+ sub_category_id + ", assignee_Id=" + assignee_Id +  ", subject="
+				+ subject  + ", status_id=" + status_id + ", priority_id=" + priority_id
+				+ "]";
+	}
+	
+	
+}

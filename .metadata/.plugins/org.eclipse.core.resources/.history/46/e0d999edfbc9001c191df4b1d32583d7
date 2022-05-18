@@ -1,0 +1,9 @@
+package com.springboot.support.serviceimpl;
+
+public class NoDataFoundException extends Exception{
+	
+	public  NoDataFoundException(String str) {
+		super(str);
+	}
+
+}

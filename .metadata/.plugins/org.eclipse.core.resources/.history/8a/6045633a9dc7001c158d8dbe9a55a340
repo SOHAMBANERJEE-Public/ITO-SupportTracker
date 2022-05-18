@@ -1,0 +1,13 @@
+package com.springboot.support.services;
+
+import java.util.List;
+
+import com.springboot.support.entities.Comments;
+
+
+public interface CommentService {
+
+	public Comments createComment(int ticid,int usrid,Comments comments);
+	public Comments updateCommentInfo(int usrid, Comments user);
+	public List<Comments> viewAllComment();
+}

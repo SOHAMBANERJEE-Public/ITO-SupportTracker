@@ -1,0 +1,25 @@
+package com.springboot.support.services;
+
+import java.util.List;
+
+import com.springboot.support.entities.Admin;
+
+
+public interface AdminService {
+
+	/**
+	 * Method use for creating a new admin by saving all the details in database
+	 * @param admin is a Admin entity object which hold the details given by Admin.
+	 * @return Admin type value.
+	 */
+	public Admin createAdmin(Admin admin);
+	/**
+	 * 
+	 * @param admid Integer type value holds Admin Id
+	 * @param admin Admin type Object for holding Admin details.
+	 * @return
+	 */
+	public Admin updateAdmininfo(int admid, Admin admin);
+	public List<Admin> viewAllAdmins();
+	
+}
